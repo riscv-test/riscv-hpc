@@ -13,6 +13,7 @@
 # TOP-LEVEL VARIABLES
 #------------------------------------------------
 TEST=$(basename $0)
+SRC=$TEST-SRC
 REPO=https://github.com/riscv/riscv-gnu-toolchain
 ARCHIVE=
 INSTALL_PATH=$WORKSPACE/$TEST
@@ -35,7 +36,13 @@ rm -Rf $INSTALL_PATH
 mkdir -p $INSTALL_PATH
 
 #------------------------------------------------
-# STAGE-4: INITIATE THE BUILD
+# STAGE-4: CLONE THE REPO
+#------------------------------------------------
+git clone --recursive $REPO $SRC
+cd $SRC
+
+#------------------------------------------------
+# STAGE-5: INITIATE THE BUILD
 #------------------------------------------------
 ./configure --prefix=$INSTALL_PATH --enable-multilib
 make -j$MAX_THREADS
