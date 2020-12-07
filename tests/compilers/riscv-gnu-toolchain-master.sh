@@ -38,6 +38,7 @@ mkdir -p $INSTALL_PATH
 #------------------------------------------------
 # STAGE-4: CLONE THE REPO
 #------------------------------------------------
+rm -Rf $SRC
 git clone --recursive $REPO $SRC
 cd $SRC
 
