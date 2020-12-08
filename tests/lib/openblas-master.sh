@@ -22,7 +22,7 @@ ARCHIVE=
 #------------------------------------------------
 # STAGE-1: SOURCE THE ENVIRONMENT SCRIPT
 #------------------------------------------------
-. $WORKSPACE/common/build_env.sh $TEST $NODE_NAME $NODE_LABELS $MAX_THREADS $REPO $ARCHIVE
+. $WORKSPACE/common/build_env.sh $TEST $NODE_NAME "$NODE_LABELS" $MAX_THREADS $REPO $ARCHIVE
 
 #------------------------------------------------
 # STAGE-2: REMOVE THE STALE BUILD
