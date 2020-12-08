@@ -2,11 +2,11 @@
 #
 # RISC-V HPC Test Suite
 #
-# riscv-gnu-toolchain-master.sh
+# /lib/openblas-master.sh
 #
-# RISC-V GNU Toolchain: Master branch
+# OpenBLAS Master Branch
 #
-# https://github.com/riscv/riscv-gnu-toolchain
+# https://github.com/xianyi/OpenBLAS.git
 #
 
 #------------------------------------------------
@@ -14,7 +14,7 @@
 #------------------------------------------------
 TEST=$(basename $0)
 SRC=$TEST-SRC
-REPO=https://github.com/riscv/riscv-gnu-toolchain
+REPO=https://github.com/xianyi/OpenBLAS.git
 ARCHIVE=
 #------------------------------------------------
 
@@ -39,14 +39,13 @@ mkdir -p $INSTALL_PATH
 #------------------------------------------------
 cd $BUILDROOT
 rm -Rf $SRC
-git clone --recursive $REPO $SRC
+git clone $REPO $SRC
 cd $SRC
 
 #------------------------------------------------
 # STAGE-5: INITIATE THE BUILD
 #------------------------------------------------
-./configure --prefix=$INSTALL_PATH --enable-multilib
-make -j$MAX_THREADS
+make HOSTCC=gcc CC=$RV_CC ARCH=riscv64 NO_LAPACKE=1
 
 exit 0
 
