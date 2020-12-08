@@ -23,6 +23,13 @@
 mkdir -p $WORKSPACE/build
 export BUILDROOT="$WORKSPACE/build"
 export INSTALL_PATH="$WORKSPACE/$1-INSTALL"
+export SRC="$1-SRC"
+
+#------------------------------------------------
+# SETUP THE INSTALLATION PATH
+#------------------------------------------------
+rm -Rf $INSTALL_PATH
+mkdir -p $INSTALL_PATH
 
 #------------------------------------------------
 # PRINT THE ENVIRONMENT
