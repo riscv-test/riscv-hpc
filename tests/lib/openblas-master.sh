@@ -45,7 +45,7 @@ cd $SRC
 #------------------------------------------------
 # STAGE-5: INITIATE THE BUILD
 #------------------------------------------------
-make HOSTCC=gcc CC=$RV_CC ARCH=riscv64 NO_LAPACKE=1
+make HOSTCC=gcc CC=$RV_CC ARCH=riscv64 NO_LAPACKE=1 -j$MAX_THREADS
 
 exit 0
 
