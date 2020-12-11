@@ -28,7 +28,7 @@ ARCHIVE=http://www.fftw.org/fftw-3.3.8.tar.gz
 cd $BUILDROOT
 rm -Rf $SRC
 wget $ARCHIVE
-tar xzvf $ARCHIVE
+tar xzvf fftw-3.3.8.tar.gz
 mv fftw-3.3.8 $SRC
 cd $SRC
 
