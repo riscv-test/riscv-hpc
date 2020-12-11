@@ -12,7 +12,22 @@ The RISC-V HPC test suite is licensed under a BSD-style license = see the [LICEN
 ## Developing New Scripts
 ### Overview
 ### Template Script
+
+We have provided a number of template scriptes in `/templates/`
+- template-master.sh : sample test script
+
 ### Script Naming Convention
+
+The test harness requires script naming convention for test driver scripts.
+These can be summarized as follows:
+* Each script name must be unique with respect to adjacent scripts.  Scripts 
+names may not collide with one another.
+* Script names must be descriptive of the target test.
+* Script names must end in `*.sh`
+* Script names may contain alphanumeric characters, underscores and dashes.  Other
+special characters are not permitted.
+* Script names should be constructed as `Name-Release.sh`
+
 ### Required Script Elements
 
 Each test script must be constructed using the same set of basic steps.  Developers are 
@@ -78,6 +93,9 @@ can be utilized within any execution script.
 | RV\_CC | String | The RISC-V C compiler path|
 | RV\_CXX | String | The RISC-V C++ compiler path|
 | RV\_FORT | String | The RISC-V Fortran compiler path|
+| RV\_CFLAGS | String | The RISC-V C Flags|
+| RV\_CXXFLAGS | String | The RISC-V CXX Flags|
+| RV\_FORTFLAGS | String | The RISC-V Fort Flags|
 | MAX\_THREADS | Integer | The maximum number of threads for the respective build node|
 | NODE\_NAME | String | Name of the CI node executing the tests (for logging)|
 | NODE\_LABELS | String(s) | Node labels utilized to pair the executing node and the test|
