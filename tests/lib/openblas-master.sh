@@ -33,9 +33,9 @@ cd $SRC
 #------------------------------------------------
 # STAGE-3: INITIATE THE BUILD
 #------------------------------------------------
-if [ -z "$var" ]
+if [ -z "$RV_FORT" ]
 then
-  #-- build with Fortran support
+  #-- build without Fortran support
   make HOSTCC=gcc CC='$RV_CC $RV_CFLAGS' ARCH=riscv64 NO_LAPACKE=1 TARGET=RISCV64_GENERIC -j$MAX_THREADS
 else
   #-- build with Fortran support
