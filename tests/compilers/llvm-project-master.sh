@@ -36,7 +36,7 @@ cd $SRC
 #------------------------------------------------
 mkdir build
 cd build
-cmake -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH -DCMAKE_BUILD_TYPE=Debug -DLLVM_ENABLE_PROJECTS="clang;flang;libcxx;libcxxabi;openmp;lld" -DLLVM_TARGETS_TO_BUILD="RISCV" ../llvm
+cmake -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH -DLLVM_ENABLE_PROJECTS="clang;flang;libcxx;libcxxabi;openmp;lld" -DLLVM_TARGETS_TO_BUILD="RISCV" ../llvm
 make -j$MAX_THREADS
 make install
 
