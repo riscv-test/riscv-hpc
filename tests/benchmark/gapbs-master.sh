@@ -33,7 +33,7 @@ cd $SRC
 #------------------------------------------------
 # STAGE-3: INITIATE THE BUILD
 #------------------------------------------------
-CXX=$RV_CXX $CXXFLAGS=$RV_CXXFLAGS make -j$MAX_THREADS
+CXX=$RV_CXX $CXX_FLAGS=$RV_CXXFLAGS make -j$MAX_THREADS
 
 exit 0
 
