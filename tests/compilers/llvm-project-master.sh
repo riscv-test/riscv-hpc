@@ -42,7 +42,7 @@ make install
 
 #-- remove the current build so we can reconstruct everything for RISC-V
 rm -Rf ./*
-cmkae -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH -DCMAKE_C_COMPILER=$INSTALL_PATH/bin/clang -DCMAKE_CXX_COMPILER=$INSTALL_PATH/bin/clang++ -DLIBOMP_ARCH=riscv64 ../llvm/openmp
+cmake -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH -DCMAKE_C_COMPILER=$INSTALL_PATH/bin/clang -DCMAKE_CXX_COMPILER=$INSTALL_PATH/bin/clang++ -DLIBOMP_ARCH=riscv64 ../llvm/openmp
 make -j$MAX_THREADS
 make install
 
