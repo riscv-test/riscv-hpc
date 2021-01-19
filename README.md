@@ -101,7 +101,7 @@ can be utilized within any execution script.
 | NODE\_LABELS | String(s) | Node labels utilized to pair the executing node and the test|
 | -- | -- | -- |
 | RV\_SYSROOT\_BASE | String | Base directory location of pre-existing (pre-built) compilers|
-| RV\_SYSROOT | String | Location of a baseline, known working GNU compiler used for cross compilation `RV\_SYSROOT\_BASE/path`|
+| RV\_SYSROOT | String | Location of a baseline, known working GNU compiler used for cross compilation `RV_SYSROOT_BASE/path`|
 
 ### Test Environment
 
