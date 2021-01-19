@@ -32,7 +32,8 @@ ARCHIVE=https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.0/ll
 # STAGE-3: INITIATE THE BUILD
 #------------------------------------------------
 # Check to ensure that the compiler exists
-if [ -f "$RV_CC" ]; then
+if [ -s "$RV_CC" ];
+then
   echo "Preinstalled compiler exists at $RV_CC"
 else
   echo "Preinstalled compiler NOT FOUND at $RV_CC"
