@@ -99,6 +99,9 @@ can be utilized within any execution script.
 | MAX\_THREADS | Integer | The maximum number of threads for the respective build node|
 | NODE\_NAME | String | Name of the CI node executing the tests (for logging)|
 | NODE\_LABELS | String(s) | Node labels utilized to pair the executing node and the test|
+| -- | -- | -- |
+| RV\_SYSROOT\_BASE | String | Base directory location of pre-existing (pre-built) compilers|
+| RV\_SYSROOT | String | Location of a baseline, known working GNU compiler used for cross compilation `RV\_SYSROOT\_BASE/path`|
 
 ### Test Environment
 
