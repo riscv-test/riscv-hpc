@@ -5,7 +5,7 @@ This repository serves as the basis for the official RISC-V HPC test suite
 that is executed via the Jenkins CI host at https://riscv-test.org.
 
 ## License
-The RISC-V HPC test suite is licensed under a BSD-style license = see the [LICENSE](LICENSE) file for details.
+The RISC-V HPC test suite is licensed under a BSD-style license - see the [LICENSE](LICENSE) file for details.
 
 ## Architecture Overview
 
@@ -19,8 +19,7 @@ find the gaps in the RISC-V software ecosystem.
 
 As we see in the figure below, the test infrastructure is crafted using a series of build scripts 
 integrated into a Jenkins pipeline.  Each pipeline instance is initiated at a specific cadence 
-(documented in the Jenkins environment).  The first stage of the pipeline initializes  the test environment.  
-The second stage of the pipeline initializes a set of global 
+(documented in the Jenkins environment).  The first stage of the pipeline initializes  the test environment.  The second stage of the pipeline initializes a set of global 
 variables that are utilized by individual test scripts.  These global variables initialize values 
 such as the absolute installation path of the target compiler, the required compiler flags and other 
 various paths.  The third stage of the pipeline builds the target compiler.  For compilers that are 
