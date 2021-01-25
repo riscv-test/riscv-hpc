@@ -37,14 +37,32 @@ cd $SRC
 mkdir build
 cd build
 cmake -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH -DLLVM_ENABLE_PROJECTS="clang;flang;lld" -DLLVM_TARGETS_TO_BUILD="RISCV" ../llvm
+if [ $? -ne 0 ]; then
+  exit -1
+fi
 make -j$MAX_THREADS
+if [ $? -ne 0 ]; then
+  exit -1
+fi
 make install
+if [ $? -ne 0 ]; then
+  exit -1
+fi
 
 #-- remove the current build so we can reconstruct everything for RISC-V
 rm -Rf ./*
 cmake -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH -DCMAKE_C_COMPILER=$RV_SYSROOT/bin/riscv64-unknown-linux-gnu-gcc -DCMAKE_CXX_COMPILER=$RV_SYSROOT/bin/riscv64-unknown-linux-gnu-g++ -DLIBOMP_ARCH=riscv64 ../openmp
+if [ $? -ne 0 ]; then
+  exit -1
+fi
 make -j$MAX_THREADS
+if [ $? -ne 0 ]; then
+  exit -1
+fi
 make install
+if [ $? -ne 0 ]; then
+  exit -1
+fi
 
 
 exit 0

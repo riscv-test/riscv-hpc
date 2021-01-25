@@ -33,8 +33,10 @@ cd $SRC
 #------------------------------------------------
 # STAGE-3: INITIATE THE BUILD
 #------------------------------------------------
-#export SERIAL=1
 CXX=$RV_CXX CXX_FLAGS="$RV_CXXFLAGS -L$COMPILER_INSTALL_PATH/lib" make -j$MAX_THREADS
+if [ $? -ne 0 ]; then
+  exit -1
+fi
 
 exit 0
 

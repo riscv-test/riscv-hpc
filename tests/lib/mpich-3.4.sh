@@ -40,7 +40,7 @@ cd build
 
 if [[ -z "${RV_FORT}" ]]; then
   #-- build without Fortran support
-  CC="$RV_CC" CFLAGS="$RV_CFLAGS" CXX="$RV_CXX" CXXFLAGS="$RV_CXXFLAGS" ../configure --prefix=$INSTALL_PATH --disable-fortran --enable-cxx
+  CC="$RV_CC" CFLAGS="$RV_CFLAGS" CXX="$RV_CXX" CXXFLAGS="$RV_CXXFLAGS" ../configure --host=riscv64-unknown-linux --prefix=$INSTALL_PATH --disable-fortran --enable-cxx
   if [ $? -ne 0 ]; then
     exit -1
   fi
@@ -54,7 +54,7 @@ if [[ -z "${RV_FORT}" ]]; then
   fi
 else
   #-- build with Fortran support
-  FC="$RV_FORT" FCFLAGS="$RV_CFLAGS" CC="$RV_CC" CFLAGS="$RV_CFLAGS" CXX="$RV_CXX" CXXFLAGS="$RV_CXXFLAGS" ../configure --prefix=$INSTALL_PATH --enable-fortran --enable-cxx
+  FC="$RV_FORT" FCFLAGS="$RV_CFLAGS" CC="$RV_CC" CFLAGS="$RV_CFLAGS" CXX="$RV_CXX" CXXFLAGS="$RV_CXXFLAGS" ../configure --host=riscv64-unknown-linux --prefix=$INSTALL_PATH --enable-fortran --enable-cxx
   if [ $? -ne 0 ]; then
     exit -1
   fi

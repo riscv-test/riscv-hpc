@@ -36,8 +36,17 @@ cd $SRC
 # STAGE-3: INITIATE THE BUILD
 #------------------------------------------------
 ./configure CC="$RV_CC" CFLAGS="$RV_CFLAGS -O3" --host=riscv64-unknown-linux-gnu --prefix=$INSTALL_PATH
+if [ $? -ne 0 ]; then
+  exit -1
+fi
 make -j$MAX_THREADS
+if [ $? -ne 0 ]; then
+  exit -1
+fi
 make install
+if [ $? -ne 0 ]; then
+  exit -1
+fi
 
 exit 0
 

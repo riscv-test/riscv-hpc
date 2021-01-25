@@ -35,7 +35,13 @@ cd $SRC
 # STAGE-3: INITIATE THE BUILD
 #------------------------------------------------
 ./configure --prefix=$INSTALL_PATH --enable-multilib
+if [ $? -ne 0 ]; then
+  exit -1
+fi
 make linux -j$MAX_THREADS
+if [ $? -ne 0 ]; then
+  exit -1
+fi
 
 exit 0
 

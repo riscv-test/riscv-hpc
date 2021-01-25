@@ -36,11 +36,20 @@ cd $SRC
 if [[ -z "${RV_FORT}" ]]; then
   #-- build without Fortran support
   make HOSTCC=gcc CC="$RV_CC $RV_CFLAGS" ARCH=riscv64 NO_LAPACKE=1 TARGET=RISCV64_GENERIC -j$MAX_THREADS
+  if [ $? -ne 0 ]; then
+    exit -1
+  fi
 else
   #-- build with Fortran support
   make HOSTCC=gcc CC="$RV_CC $RV_CFLAGS" FC=$RV_FORT ARCH=riscv64 TARGET=RISCV64_GENERIC -j$MAX_THREADS
+  if [ $? -ne 0 ]; then
+    exit -1
+  fi
 fi
 make PREFIX=$INSTALL_PATH install
+if [ $? -ne 0 ]; then
+  exit -1
+fi
 
 exit 0
 

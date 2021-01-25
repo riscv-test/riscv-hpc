@@ -41,7 +41,13 @@ else
   mkdir build
   cd build
   FC="$RV_FORT $RV_CFLAGS" CC="$RV_CC $RV_CFLAGS" cmake -DCMAKE_INSTALL_LIBDIR=$INSTALL_PATH ../
+  if [ $? -ne 0 ]; then
+    exit -1
+  fi
   cmake --build . -j --target install
+  if [ $? -ne 0 ]; then
+    exit -1
+  fi
 fi
 
 exit 0
