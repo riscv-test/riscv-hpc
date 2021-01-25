@@ -35,7 +35,7 @@ cd $SRC
 #------------------------------------------------
 mkdir build
 cd build
-CC="$RV_CC $RV_CFLAGS" cmake -DCMAKE_BUILD_TYPE=Release -CMAKE_INSTALL_PREFIX=$INSTAL_PATH -DSLEEF_SHOW_CONFIG=ON ../
+CC="$RV_CC $RV_CFLAGS" cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$INSTAL_PATH -DSLEEF_SHOW_CONFIG=ON ../
 if [ $? -ne 0 ]; then
   exit -1
 fi
