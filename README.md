@@ -9,8 +9,49 @@ The RISC-V HPC test suite is licensed under a BSD-style license = see the [LICEN
 
 ## Architecture Overview
 
+The RISCV-HPC test architecture is setup specifically to support testing various compilers, libraries 
+benchmarks and applications for high performance computing against the RISC-V software ecosystem.  
+The test architecture is crafted specifically to support inclusion of a variety of different 
+software tools that can be built using different compilers and/or compiler versions.  Note that 
+these software entities are NOT executed.  We do not execute and/or track benchmark performance 
+of any software package, benchmark or application.  Rather, this infrastructure is designed to 
+find the gaps in the RISC-V software ecosystem.  
+
+As we see in the figure below, the test infrastructure is crafted using a series of build scripts 
+integrated into a Jenkins pipeline.  Each pipeline instance is initiated at a specific cadence 
+(documented in the Jenkins environment).  The first stage of the pipeline initializes  the test environment.  
+The second stage of the pipeline initializes a set of global 
+variables that are utilized by individual test scripts.  These global variables initialize values 
+such as the absolute installation path of the target compiler, the required compiler flags and other 
+various paths.  The third stage of the pipeline builds the target compiler.  For compilers that are 
+designated as "release" builds, we utilize a previously built compiler (as release builds rarely change).  
+For compiler builds that target the top of tree source code, we build and install the entire compiler from scratch.  
+Once the compiler build has been deemed stable, we execute three sets of nested pipeline stages.  The first 
+stage builds and installs candidate libraries.  This can be from release archives or from top-of-tree 
+git repositories.  We execute library builds first in order to permit their use by other benchmark or application builds.  
+The second and third nested pipeline stages build benchmarks and full applications.  Each of the library, benchmark 
+and application builds is driven by a single, specifically formatted test script that handles package-specific 
+build options.
+
+Each compiler configuration pipeline resides in a unique pipeline instance.  
+The master set of pipeline instances are currently hosted in a public Jenkins instance at 
+[https://riscv-test.org/](https://riscv-test.org/).
+
+![Test Architecture](https://raw.githubusercontent.com/riscv-test/riscv-hpc/master/imgs/test-architecture.jpg)
+
 ## Developing New Scripts
 ### Overview
+
+In order to ensure correct execution within the RISCV-HPC environment, each 
+test script requires four major steps.  We outline these steps as follow with additional 
+detail provided below:
+
+1. Initialization of Top-Level Variables
+2. Environment Setup
+3. Source Code Retrieval
+4. Configuration, Build and Installation
+
+
 ### Template Script
 
 We have provided a number of template scriptes in `/templates/`
@@ -76,7 +117,69 @@ the calling convention.
 
 #### Source Code Retrieval
 
+The second stage of the build script should retrieve the target source code and place it 
+in a directory previously initialized by the environment script.  The environment 
+sript initializes a variable called `$SRC` that contains the absolute path to the 
+directory where the source code should reside.  Examples of doing so 
+for both Git based source and Archive based source are provided below.  Also note 
+that this stage changes directory to the target source directory.
+
+```
+#------------------------------------------------
+# STAGE-2: CLONE THE REPO
+#------------------------------------------------
+cd $BUILDROOT
+rm -Rf $SRC
+git clone $REPO $SRC
+cd $SRC
+```
+
+```
+#------------------------------------------------
+# STAGE-2: CLONE THE REPO
+#------------------------------------------------
+cd $BUILDROOT
+rm -Rf $SRC
+wget $ARCHIVE
+tar xzvf PACKAGE.tar.gz
+mv PACKAGE $SRC
+cd $SRC
+```
+
 #### Build Execution
+
+The final stage in the script should configure, build and install the source code.  This stage 
+will require any package-specific options to be configured using the target compilation actions.  
+For compiler and build-specific options, we provide a set of global variables that contain C, CXX 
+and Fortran compiler paths and flags.  In the case that no Fortran compiler is available (eg, LLVM), 
+then the `RV_FORT` variable will be null.  
+
+Note that for each step in the build, the script should check the return status of major commands.  
+For any commands that fail, a non-zero exit code should be returned at minimum.  This will force the
+pipeline stage to fail (but not the entire Jenkins pipeline).  An example of configuring, building and 
+installing a package is as follows (we use CMake as a example)
+
+```
+#-- from $SRC
+mkdir build
+cd build
+CXX=$RV_CXX CXX_FLAGS="$RV_CXXFLAGS" cmake -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH ../
+if [ $? -ne 0 ]; then
+  exit -1
+fi
+
+make -j$MAX_THREADS
+if [ $? -ne 0 ]; then
+  exit -1
+fi
+
+make install
+if [ $? -ne 0 ]; then
+  exit -1
+fi
+
+exit 0
+```
 
 ### Global CI Variables
 
