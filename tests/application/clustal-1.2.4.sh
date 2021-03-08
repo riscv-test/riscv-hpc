@@ -27,7 +27,9 @@ ARCHIVE=http://www.clustal.org/omega/clustal-omega-1.2.4.tar.gz
 #------------------------------------------------
 cd $BUILDROOT
 rm -Rf $SRC
-git clone $REPO $SRC
+wget $ARCHIVE
+tar xzvf clustal-omega-1.2.4.tar.gz
+mv clustal-omega-1.2.4 $SRC
 cd $SRC
 
 #------------------------------------------------
