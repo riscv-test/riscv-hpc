@@ -2,19 +2,19 @@
 #
 # RISC-V HPC Test Suite
 #
-# /benchmark/circustent-master.sh
+# /application/gromacs-2021.2.sh
 #
-# CircusTent Master Branch
+# Gromacs 2021.2
 #
-# https://github.com/tactcomplabs/circustent
+# https://manual.gromacs.org/2021.2/download.html
 #
 
 #------------------------------------------------
 # TOP-LEVEL VARIABLES
 #------------------------------------------------
 TEST=$(basename $0)
-REPO=https://github.com/tactcomplabs/circustent.git
-ARCHIVE=
+REPO=
+ARCHIVE=https://ftp.gromacs.org/gromacs/gromacs-2021.2.tar.gz
 #------------------------------------------------
 
 #------------------------------------------------
@@ -27,7 +27,9 @@ ARCHIVE=
 #------------------------------------------------
 cd $BUILDROOT
 rm -Rf $SRC
-git clone $REPO $SRC
+wget $ARCHIVE
+tar xzvf gromacs-2021.2.tar.gz
+mv gromacs-2021.2 $SRC
 cd $SRC
 
 #------------------------------------------------
@@ -35,12 +37,17 @@ cd $SRC
 #------------------------------------------------
 mkdir build
 cd build
-CC="$RV_CC" CFLAGS="$RV_CFLAGS" CXX="$RV_CXX" CXX_FLAGS="$RV_CXXFLAGS -L$COMPILER_INSTALL_PATH/lib" cmake -DENABLE_OMP=ON ../
+CC="$RV_CC" CFLAGS="$RV_CFLAGS" CXX="$RV_CXX" CXXFLAGS="$RV_CXXFLAGS" cmake ../ -DGMX_BUILD_OWN_FFTW=ON DREGRESSIONTEST_DOWNLOAD=OFF -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH
 if [ $? -ne 0 ]; then
   exit -1
 fi
 
 make -j$MAX_THREADS
+if [ $? -ne 0 ]; then
+  exit -1
+fi
+
+make install
 if [ $? -ne 0 ]; then
   exit -1
 fi
