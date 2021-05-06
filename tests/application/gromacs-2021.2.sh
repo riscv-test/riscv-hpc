@@ -37,7 +37,10 @@ cd $SRC
 #------------------------------------------------
 mkdir build
 cd build
-CC="$RV_CC" CFLAGS="$RV_CFLAGS" CXX="$RV_CXX" CXXFLAGS="$RV_CXXFLAGS" cmake -DGMX_BUILD_OWN_FFTW=ON -DREGRESSIONTEST_DOWNLOAD=OFF -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH ../
+CC="$RV_CC" CFLAGS="$RV_CFLAGS" CXX="$RV_CXX" CXXFLAGS="$RV_CXXFLAGS" cmake \
+-DGMX_BUILD_OWN_FFTW=ON -DREGRESSIONTEST_DOWNLOAD=OFF \
+-DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
+-DTARGET_HOST=riscv64-unknown-linux-gnu  ../
 if [ $? -ne 0 ]; then
   exit -1
 fi

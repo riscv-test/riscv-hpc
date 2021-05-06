@@ -35,7 +35,7 @@ cd $SRC
 #------------------------------------------------
 mkdir build
 cd build
-CC="$RV_CC" CFLAGS="$RV_CFLAGS -L$COMPILER_INSTALL_PATH/lib" CXX="$RV_CXX" CXX_FLAGS="$RV_CXXFLAGS -L$COMPILER_INSTALL_PATH/lib" cmake -DENABLE_OMP=ON ../
+CC="$RV_CC" CFLAGS="$RV_CFLAGS -L$COMPILER_INSTALL_PATH/lib" CXX="$RV_CXX" CXX_FLAGS="$RV_CXXFLAGS -L$COMPILER_INSTALL_PATH/lib" cmake -DENABLE_OMP=ON  -DCMAKE_CXX_COMPILER_WORKS=ON ../
 if [ $? -ne 0 ]; then
   exit -1
 fi
