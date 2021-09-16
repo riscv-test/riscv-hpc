@@ -40,7 +40,18 @@ else
   #-- build with Fortran support
   mkdir build
   cd build
-  cmake -DCMAKE_C_COMPILER="$RV_CC $RV_CFLAGS" -DCMAKE_CXX_COMPILER="$RV_CXX $RV_CXXFLAGS" -DCMAKE_Fortran_COMPILER="$RV_FORT $RV_FORTFLAGS" -DTrilinos_ENABLE_ALL_PACKAGES=ON -DTPL_ENABLE_BLAS=OFF -DTPL_ENABLE_LAPACK=OFF -DTPL_ENABLE_Boost=OFF -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH ../
+  cmake -D CMAKE_C_COMPILER:STRING="$RV_CC $RV_CFLAGS" \
+        -D CMAKE_CXX_COMPILER:STRING="$RV_CXX $RV_CXXFLAGS" \
+        -D CMAKE_Fortran_COMPILER:STRING="$RV_FORT $RV_FORTFLAGS" \
+        -D Trilinos_ENABLE_ALL_PACKAGES:BOOL=OFF \
+        -D Trilinos_ENABLE_Kokkos:BOOL=ON \
+        -D Trilinos_ENABLE_KokkosKernels:BOOL=ON \
+        -D Trilinos_ENABLE_Tpetra:BOOL=ON \
+        -D TPL_ENABLE_BLAS:BOOL=OFF \
+        -D TPL_ENABLE_LAPACK:BOOL=OFF \
+        -D TPL_ENABLE_Boost:BOOL=OFF \
+        -D CMAKE_INSTALL_PREFIX:PATH=$INSTALL_PATH \
+        ../
   make -j$MAX_THREADS
   if [ $? -ne 0 ]; then
     exit -1
