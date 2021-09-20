@@ -43,7 +43,6 @@ else
   cmake -D CMAKE_C_COMPILER:STRING="$RV_CC $RV_CFLAGS" \
         -D CMAKE_CXX_COMPILER:STRING="$RV_CXX $RV_CXXFLAGS" \
         -D CMAKE_Fortran_COMPILER:STRING="$RV_FORT $RV_FORTFLAGS" \
-        -D Trilinos_ENABLE_ALL_PACKAGES:BOOL=OFF \
         -D Trilinos_ENABLE_Kokkos:BOOL=ON \
         -D Trilinos_ENABLE_KokkosKernels:BOOL=ON \
         -D Trilinos_ENABLE_Tpetra:BOOL=ON \
