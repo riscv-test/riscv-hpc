@@ -36,7 +36,7 @@ cd $SRC
 #------------------------------------------------
 mkdir build
 cd build
-cmake -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH -DLLVM_ENABLE_PROJECTS="clang;flang;lld" -DLLVM_TARGETS_TO_BUILD="RISCV" ../llvm
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH -DLLVM_ENABLE_PROJECTS="clang;flang;lld" -DLLVM_TARGETS_TO_BUILD="RISCV" ../llvm
 if [ $? -ne 0 ]; then
   exit -1
 fi
